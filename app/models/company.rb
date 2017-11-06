@@ -4,4 +4,6 @@ class Company < ApplicationRecord
 
   validates :plan_level, inclusion: { in: %w(legacy custom basic plus growth
                                              enterprise) }
+
+  has_many :lessons
 end
