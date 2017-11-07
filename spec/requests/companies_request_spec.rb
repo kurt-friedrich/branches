@@ -26,4 +26,21 @@ RSpec.describe '/companies endpoints', type: :request do
       expect(response_body['data'].first['name']).to eq(company.name)
     end
   end
+
+  describe 'GET /companies/with_modern_plan' do
+    let!(:modern_company) { FactoryBot.create(:company, plan_level: 'basic') }
+    let!(:legacy_company) { FactoryBot.create(:company, plan_level: 'legacy') }
+
+    it 'returns companies with a modern plan level' do
+      get companies_with_modern_plan_url
+
+      expect(response.body).to include(modern_company.to_json)
+    end
+
+    it 'does not return companies with non-modern plan levels' do
+      get companies_with_modern_plan_url
+
+      expect(response.body).not_to include(legacy_company.to_json)
+    end
+  end
 end
