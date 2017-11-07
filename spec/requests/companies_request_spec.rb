@@ -43,4 +43,21 @@ RSpec.describe '/companies endpoints', type: :request do
       expect(response.body).not_to include(legacy_company.to_json)
     end
   end
+
+  describe 'GET /companies/not_trialing' do
+    let!(:inactive_company) { FactoryBot.create(:company, trial_status: Date.today - 1) }
+    let!(:active_company) { FactoryBot.create(:company, trial_status: Date.tomorrow) }
+
+    it 'returns companies that are not actively trialing' do
+      get companies_not_trialing_url
+
+      expect(response.body).to include(inactive_company.to_json)
+    end
+
+    it 'does not return companies that are actively trialing' do
+      get companies_not_trialing_url
+
+      expect(response.body).not_to include(active_company.to_json)
+    end
+  end
 end

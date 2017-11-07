@@ -21,4 +21,11 @@ RSpec.describe CompaniesController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe 'GET #not_trialing' do
+    it 'returns http success' do
+      get :not_trialing
+      expect(response).to have_http_status(:success)
+    end
+  end
 end

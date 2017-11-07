@@ -14,4 +14,10 @@ class CompaniesController < ApplicationController
 
     render json: { data: companies }
   end
+
+  def not_trialing
+    companies = Company.where('trial_status < ?', Date.today)
+
+    render json: { data: companies }
+  end
 end
