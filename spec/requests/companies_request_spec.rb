@@ -60,4 +60,21 @@ RSpec.describe '/companies endpoints', type: :request do
       expect(response.body).not_to include(active_company.to_json)
     end
   end
+
+  describe 'GET /companies/created_last_month' do
+    let!(:included_company) { FactoryBot.create(:company, created_at: Time.now.last_month) }
+    let!(:excluded_company) { FactoryBot.create(:company, created_at: Time.now - 2.months) }
+
+    it 'returns companies that were created during the last calendar month' do
+      get companies_created_last_month_url
+
+      expect(response.body).to include(included_company.to_json)
+    end
+
+    it 'does not return companies that were not created during the last calendar month' do
+      get companies_created_last_month_url
+
+      expect(response.body).not_to include(excluded_company.to_json)
+    end
+  end
 end
