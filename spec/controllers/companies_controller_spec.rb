@@ -28,4 +28,11 @@ RSpec.describe CompaniesController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe 'GET #created_last_month' do
+    it 'returns http success' do
+      get :created_last_month
+      expect(response).to have_http_status(:success)
+    end
+  end
 end

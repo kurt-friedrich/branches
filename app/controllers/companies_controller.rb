@@ -20,4 +20,13 @@ class CompaniesController < ApplicationController
 
     render json: { data: companies }
   end
+
+  def created_last_month
+    last_month_start = Date.today.last_month.at_beginning_of_month
+    last_month_end   = Date.today.last_month.at_end_of_month
+
+    companies = Company.where(created_at: last_month_start..last_month_end)
+
+    render json: { data: companies }
+  end
 end
