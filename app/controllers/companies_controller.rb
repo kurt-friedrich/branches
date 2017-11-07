@@ -8,4 +8,10 @@ class CompaniesController < ApplicationController
 
     render json: { data: companies }
   end
+
+  def with_modern_plan
+    companies = Company.where.not(plan_level: ['custom', 'legacy'])
+
+    render json: { data: companies }
+  end
 end

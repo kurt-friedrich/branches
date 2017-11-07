@@ -14,4 +14,11 @@ RSpec.describe CompaniesController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe 'GET #with_modern_plan' do
+    it 'returns http success' do
+      get :with_modern_plan
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
