@@ -7,4 +7,11 @@ RSpec.describe CompaniesController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe 'GET #alphabetically' do
+    it 'returns http success' do
+      get :alphabetically
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
